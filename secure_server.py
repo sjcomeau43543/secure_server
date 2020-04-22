@@ -1,6 +1,6 @@
 import os, argparse
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-import BaseHTTPServer
+from http.server import SimpleHTTPRequestHandler
+from http.server import HTTPServer
 
 
 def open_http(host, port, directory):
@@ -11,10 +11,10 @@ def open_http(host, port, directory):
     protocol = "HTTP/1.0"
 
     SimpleHTTPRequestHandler.protocol_version = protocol
-    httpd = BaseHTTPServer.HTTPServer((host, port), SimpleHTTPRequestHandler)
+    httpd = HTTPServer((host, port), SimpleHTTPRequestHandler)
 
     sa = httpd.socket.getsockname()
-    print "Serving HTTP for ", web_path, " at ", host, ":", port, "..."
+    print("Serving HTTP for", web_path, "at", host, ":", port, "...")
     
     try:    
         httpd.serve_forever()
